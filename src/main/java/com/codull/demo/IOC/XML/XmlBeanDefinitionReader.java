@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class XmlBeanDefinitionReader implements BeanDefinitionReader {
 
-    private Map<String, BeanDefinition> registry;
+    private Map<String, BeanDefinition> registry;//维护一个map容器来作为IOC容器
 
     public Map<String, BeanDefinition> getRegistry() {
         return registry;
@@ -35,6 +35,15 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         registry = new HashMap<>();
     }
 
+    /**
+     *
+     *
+     * @description: 加载某个位置的xml IOC配置文件
+     * @param location
+     * @return: void
+     * @author: anthony1314
+     * @time: 2020/4/17 16:01
+     */
     @Override
     public void loadBeanDefinitions(String location) throws Exception {
         InputStream inputStream = new FileInputStream(location);
@@ -45,6 +54,15 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         parseBeanDefinitions(root);
     }
 
+    /**
+     *
+     *
+     * @description: 对文档的每个节点进行遍历
+     * @param root
+     * @return: void
+     * @author: anthony1314
+     * @time: 2020/4/17 16:02
+     */
     private void parseBeanDefinitions(Element root) throws Exception {
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -55,7 +73,15 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
             }
         }
     }
-
+    /**
+     *
+     *
+     * @description: 初始化每个类 根据文档子节点 初始化其属性
+     * @param ele
+     * @return: void
+     * @author: anthony1314
+     * @time: 2020/4/17 16:05
+     */
     private void parseBeanDefinition(Element ele) throws Exception {
         String name = ele.getAttribute("id");
         String className = ele.getAttribute("class");
@@ -64,7 +90,15 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
         processProperty(ele, beanDefinition);
         registry.put(name, beanDefinition);
     }
-
+    /**
+     *
+     *
+     * @description: 将带有 property 标签的 节点的 作为bean实例的属性 放进beanDefinition 的属性列表
+     * @param ele,beanDefinition
+     * @return: void
+     * @author: anthony1314
+     * @time: 2020/4/17 16:06
+     */
     private void processProperty(Element ele, BeanDefinition beanDefinition) {
         NodeList propertyNodes = ele.getElementsByTagName("property");
         for (int i = 0; i < propertyNodes.getLength(); i++) {

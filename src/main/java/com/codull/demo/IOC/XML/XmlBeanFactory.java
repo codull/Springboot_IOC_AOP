@@ -9,10 +9,7 @@ import com.codull.demo.IOC.PropertyValue;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: Springboot_IOC_AOP
@@ -23,9 +20,9 @@ import java.util.Map;
 
 public class XmlBeanFactory  implements BeanFactory {
 
-    private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
+    private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>(); //IOC容器里面所有bean实例的名字和属性
 
-    private List<String> beanDefinitionNames = new ArrayList<>();
+    private List<String> beanDefinitionNames = new ArrayList<>(); //IOC容器里面所有bean实例的名字
 
     private List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
@@ -34,6 +31,13 @@ public class XmlBeanFactory  implements BeanFactory {
     public XmlBeanFactory(String location) throws Exception {
         beanDefinitionReader = new XmlBeanDefinitionReader();
         loadBeanDefinitions(location);
+//        Iterator iter = beanDefinitionMap.keySet().iterator();
+//        while (iter.hasNext()){
+//            Object key = iter.next();
+//            Object val = beanDefinitionMap.get(key);
+//            System.out.println(key);
+//        }
+
     }
 
     public void loadBeanDefinitions(String location) throws Exception {
@@ -43,11 +47,12 @@ public class XmlBeanFactory  implements BeanFactory {
     }
 
     private void registerBeanDefinition() {
-        for (Map.Entry<String, BeanDefinition> entry : beanDefinitionReader.getRegistry().entrySet()) {
+        for (Map.Entry<String, BeanDefinition> entry : beanDefinitionReader.getRegistry().entrySet()) {//获得注册器里的所有键值对
             String name = entry.getKey();
             BeanDefinition beanDefinition = entry.getValue();
             beanDefinitionMap.put(name, beanDefinition);
             beanDefinitionNames.add(name);
+            //放进两个容器里面
         }
     }
 

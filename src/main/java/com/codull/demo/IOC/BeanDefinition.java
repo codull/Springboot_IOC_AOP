@@ -42,7 +42,7 @@ public class BeanDefinition {
         return beanClassName;
     }
 
-    public void setBeanClassName(String beanClassName) {
+    public void setBeanClassName(String beanClassName) {//通过类名获取类的对象 反射原理
         this.beanClassName = beanClassName;
         try {
             this.beanClass = Class.forName(beanClassName);

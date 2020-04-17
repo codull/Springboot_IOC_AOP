@@ -1,6 +1,8 @@
 package com.codull.demo.IOC.XML;
 
+import com.codull.demo.model.Car;
 import com.codull.demo.model.HelloService;
+import com.codull.demo.model.Wheel;
 import org.junit.jupiter.api.Test;
 
 
@@ -16,10 +18,10 @@ public class XmlBeanFactoryTest {
     public void getBean() throws Exception {
         String location = getClass().getClassLoader().getResource("spring-ioc.xml").getFile();
         XmlBeanFactory bf = new XmlBeanFactory(location);
-//        Wheel wheel = (Wheel) bf.getBean("wheel");
-//        System.out.println(wheel);
-//        Car car = (Car) bf.getBean("car");
-//        System.out.println(car.getWidth() + "m宽， " + car.getMoney());
+        Wheel wheel = (Wheel) bf.getBean("wheel");
+        System.out.println(wheel);
+        Car car = (Car) bf.getBean("car");
+        System.out.println(car.getWidth() + "m宽， " + car.getMoney());
         HelloService helloService = (HelloService) bf.getBean("helloService");
         helloService.sayHelloWorld();
     }

@@ -2,7 +2,7 @@ package com.codull.demo.IOC;
 
 /**
  * @program: Springboot_IOC_AOP
- * @description:
+ * @description: IOC容器里bean的信号
  * @author: anthony1314
  * @create: 2020-02-19 04:02
  **/
